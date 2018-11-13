@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title></title>
+<style type="text/css">
+    body{
+        background-color: rgb(41,42,89);
+        background-image: url('source/reallll1.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+
+		.gallery_container {
+			position: absolute;
+			width: 580px;
+			height: 235px;
+            top: 760px;
+            left: 361px;
+			overflow-x:hidden;
+		}
+		.gallery_container > div {
+			position: absolute;
+			left: 0;
+			top: 0;
+			display: none;
+		}
+		.prevBtn, .nextBtn{
+		  cursor: pointer;
+		  position: absolute;
+		  top: 50%;
+		  width: auto;
+		  margin-top: -22px;
+		  padding: 16px;
+		  color: #ffffff;
+		  font-weight: bold;
+		  font-size: 24px;
+		}
+		.nextBtn {
+		  right: 0;
+		}
+
+		.prevBtn:hover, .nextBtn:hover {
+		  background-color: rgba(0,0,0,0.8);
+		}
+
+		.dot {
+		  cursor:pointer;
+		  height: 13px;
+		  width: 13px;
+		  margin: 0 2px;
+		  background-color: #bbb;
+		  border-radius: 50%;
+		  display: inline-block;
+		  transition: background-color 0.6s ease;
+		}
+		.on {
+			background-color: #717171;
+		}
+        
+    .title{
+        top:0px;
+        margin: 0px;
+    }
+    .contents{
+        top:67px;
+        margin: 0px;
+        position: absolute;
+    }
+
+    #slide {
+        position: absolute;
+        top : 2800px;
+        margin: 0px;
+    }
+        
+    #fadeToggleBtn{
+        width: 100px;
+        height: 100px;
+        margin: 0px;
+    }
+    
+    #turtle{
+        width: 150px;
+        height: 150px;
+        position: absolute;
+        top : 980px;
+        left : 800px;
+    }
+    
+    #tiger{
+        width: 200px;
+        height: 200px;
+        position: absolute;
+        top : 1050px;
+        left : 340px;
+    }
+        
+    #mago{
+        width: 150px;
+        height: 150px;
+        position: absolute;
+        top : 1130px;
+        left : 800px;
+    }
+    
+    .playerbutton{
+        position: absolute;
+        top: 1600px;
+        left: 615px;
+    }
+    
+    .imagecontainer {
+        position: absolute;
+        top: 2235px;
+        width: 1020px;
+        background-image:url('./source/slide.jpg');
+		background-position:center;
+		background-repeat:repeat-x;
+}
+
+    .footer{
+        position: absolute;
+        top: 2850px;
+        margin: 0px;
+        border:2px solid black;
+    }
+    .link {
+        position: absolute;
+        top: 2580px;
+        left: 0px;
+        width: 660px;
+        height: 240px;
+    
+    }
+
+    .ex_mini{
+        position: absolute;
+        top : 2270px;
+        left: 440px;
+        width: 680px;
+        height:330px;
+        margin: 0px;
+        list-style:none;
+    }
+    
+    .mini1{
+        float: left;
+        margin: 0px 10px;
+    }
+        
+    .mini2{
+        float: left;
+        margin: 0px 10px;
+    }
+        
+    .mini3{
+        float: left;
+        margin: 0px 10px;
+    }
+    
+    
+</style>
+    
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript">
+
+    
+//맨위슬라이드
+		var time = 800;
+		var currentIndex = 0;		
+		$(function(){
+			var tag = "";
+			var imgCount = $(".img").length;
+			$(".gallery_container").children("div").eq(0).show();
+
+			var imgWidth = $(".img").css("width");
+			setInterval(function(){
+				var nextIndex = (currentIndex + 1) % imgCount;
+				commonSlide("-","+",imgWidth,nextIndex)
+			},5000)
+
+		})
+		function commonSlide(animSignal,cssSignal,imgWidth,index){
+				$(".gallery_container").children("div").eq(currentIndex).animate({
+					left : animSignal + imgWidth
+				},time);
+
+				$(".gallery_container").children("div").eq(index).css("left",cssSignal + imgWidth).show();
+				$(".gallery_container").children("div").eq(index).animate({
+					left : 0
+				},time);
+
+				if(index < $("img").length-1){
+		      		$(".nextBtn").show();
+		      	}
+		      	if(index == $("img").length - 1){
+		      		$(".nextBtn").hide();
+		      	}
+
+		      	$(".dot").removeClass("on");
+	          	$(".dot:eq("+index+")").addClass("on");
+	          	currentIndex = index;
+		}
+    
+//메뉴바         
+	$(document).ready(function(){
+		$(".title").click(function(){
+			var index = $(".title").index(this);
+			console.log($(".contents").eq(index).css("display"))
+			if($(".contents").eq(index).css("display") != "block") {
+				$(".contents").slideUp();
+				$(".contents").eq(index).slideDown();
+			}
+			else {
+				$(".contents").eq(index).slideUp();
+			}
+		})
+	})
+    
+//떠있는애들
+    $(document).ready(function(){
+        $("#tiger").hover(function(){
+            $("#tiger").css("transition","all .2s ease-in-out");
+			$(this).css("transform","scale(1.1)")
+		},function(){
+			$(this).css("transform","scale(1)")
+		});
+	});
+    
+       $(document).ready(function(){
+        $("#mago").hover(function(){
+            $("#mago").css("transition","all .2s ease-in-out");
+			$(this).css("transform","scale(1.1)")
+		},function(){
+			$(this).css("transform","scale(1)")
+		});
+	});
+    
+    
+      
+       $(document).ready(function(){
+        $(".playerbutton").hover(function(){
+            $(".playerbutton").css("transition","all .2s ease-in-out");
+			$(this).css("transform","scale(1.1)")
+		},function(){
+			$(this).css("transform","scale(1)")
+		});
+	});
+    
+        $(document).ready(function(){
+        $("#turtle").hover(function(){
+            $("#turtle").css("transition","all .2s ease-in-out");
+			$(this).css("transform","scale(1.1)")
+		},function(){
+			$(this).css("transform","scale(1)")
+		});
+	});
+    
+    setInterval(function(){
+		$(".imagecontainer").css({ 'background-position' : '-=2' });
+	}, 20);
+
+
+
+        
+    
+</script>
+</head>
+<body>
+    
+  
+         <!--이미지3개슬라이드-->
+    <div class="gallery_container" >
+		<div class="img"><img style="width:580px;height:235px;" src="./source/explain.jpg"></div>
+		<div class="img"><img style="width:580px;height:235px;" src="./source/explain2.jpg"></div>
+		<div class="img"><img style="width:580px;height:235px;" src="./source/explain3.jpg"></div>
+	</div>
+
+    
+    <!--메뉴바-->
+    <div style="width:100px;height:150px;" class="title"></div>
+	<div class="contents"  style="display:none;">
+		<img style="width:1300px;height:430px;" src="source/menubar.jpg">
+    </div>
+    
+    <!--떠있는애들-->
+    
+        <div><img id="turtle" style="width:150px;height:150px;" src="./source/turtle.png"></div>
+        <div><img id="mago" style="width:150px;height:150px;" src="./source/mago.png">
+        </div>
+        <div><img id="tiger" style="width:200px;height:200px;"  src="./source/tiger.png">
+        </div>
+        <div class="playerbutton"><img style="width:100px;height:100px;" src="./source/playbutton.png">
+        </div>
+
+    	
+<!--캐릭터컨테이너-->
+    <div class="imagecontainer" style="width:1570px;height:300px;"></div>
+    
+    
+<!--버튼-->
+    
+
+        <div class = "buttons">
+            
+        <p class="footer" style="width:1200px;height:200px;"></p>
+        </div>
+    
+
+    
+    
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript">
+    
+ 
+var random = new Array();
+ 
+random[0] = "luck_0.html";
+random[1] = "luck_1.html";
+random[2] = "luck_2.html";
+random[3] = "luck_3.html";
+random[4] = "luck_4.html";
+random[5] = "luck_5.html";
+random[6] = "luck_6.html";
+random[7] = "luck_7.html";
+random[8] = "luck_8.html";
+random[9] = "luck_9.html";
+random[10] = "luck_10.html";
+random[11] = "luck_11.html";
+random[12] = "luck_12.html";
+random[13] = "luck_13.html";
+random[14] = "luck_14.html";
+random[15] = "luck_15.html";
+random[16] = "luck_16.html";
+random[17] = "luck_17.html";
+random[18] = "luck_18.html";
+random[19] = "luck_19.html";
+random[20] = "luck_20.html";
+random[21] = "luck_21.html";
+ 
+function randomlink() {
+window.location = random[Math.floor(Math.random()*random.length)];
+}
+</script>
+ 
+    <div class="link">
+      <a style="text-decoration:none;padding:100px 300px;color:rgb(32 50 100);" href="javascript:randomlink()">link</a>
+    </div>
+    
+    <ul class ="ex_mini" style="width:680px;height:330px;">
+        <li class="mini1" style="width:200px;height:330px;"></li>
+        <li class ="mini2" style="width:200px;height:330px;"></li>
+        <li class="mini3" style="width:200px;height:330px;"></li>
+    </ul>
+    
+    
+</body>
+</html>
